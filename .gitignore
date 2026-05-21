@@ -1,0 +1,13 @@
+# Frontend
+frontend/node_modules
+frontend/build
+
+# Backend
+backend/target
+
+# IntelliJ
+.idea
+*.iml
+
+# Mac
+.DS_Store
