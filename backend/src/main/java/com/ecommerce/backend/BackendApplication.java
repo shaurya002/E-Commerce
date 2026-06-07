@@ -8,10 +8,6 @@ import org.springframework.context.ApplicationContext;
 public class BackendApplication {
 
     public static void main(String[] args) {
-
         ApplicationContext context =  SpringApplication.run(BackendApplication.class, args);
-
-
     }
-
 }
