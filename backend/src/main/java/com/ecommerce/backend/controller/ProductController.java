@@ -1,6 +1,8 @@
 package com.ecommerce.backend.controller;
 
 import com.ecommerce.backend.model.Product;
+import com.ecommerce.backend.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,32 +10,57 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
-        // This is a placeholder for product-related endpoints
-        // You can add methods here to handle CRUD operations for products
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/products")
-    public static List<Product> getProducts(){
-        return null;
+    public List<Product> getProducts(){
+        return productService.getAllProducts();
     }
 
     @GetMapping("products/{id}")
-    public static Product getProduct(int id){
-        return null;
+    public Product getProduct(@PathVariable int id){
+        return productService.getProductById(id);
     }
 
-    @PostMapping("/products")
-    public static Product createProduct(Product product){
-        return null;
+    @PostMapping("/product")
+    public Product createProduct(@RequestBody Product product){
+        return productService.addProduct(product);
     }
 
-    @PatchMapping("products/{id}")
-    public static Product updateProduct(int id){
-        return null;
+    @PutMapping("/products/{id}")
+    public Product updateProduct(
+            @PathVariable int id,
+            @RequestBody Product product){
+
+        Product existingProduct = productService.getProductById(id);
+
+        if(existingProduct == null){
+            throw new RuntimeException("Product not found");
+        }
+
+        existingProduct.setName(product.getName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setCategory(product.getCategory());
+        existingProduct.setBrand(product.getBrand());
+        existingProduct.setAvailable(product.isAvailable());
+        existingProduct.setQuantity(product.getQuantity());
+
+        return productService.updateProduct(existingProduct);
     }
 
     @DeleteMapping("products/{id}")
-    public static Product deleteProduct(int id){
-        return null;
+    public String deleteProduct(@PathVariable int id){
+        Product existingProduct = productService.getProductById(id);
+
+        if(existingProduct == null){
+            throw new RuntimeException("Product not found");
+        }
+
+        productService.deleteProduct(id);
+        return "Product deleted";
     }
 
 
