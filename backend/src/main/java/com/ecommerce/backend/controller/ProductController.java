@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin
 @Tag(name = "Product Controller",
         description = "Operations related to products")
 @RestController
