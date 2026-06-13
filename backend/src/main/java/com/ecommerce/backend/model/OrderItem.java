@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class OrderItem {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
@@ -25,5 +26,4 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
-
 }

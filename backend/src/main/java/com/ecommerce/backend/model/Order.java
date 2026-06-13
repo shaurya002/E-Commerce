@@ -1,6 +1,5 @@
 package com.ecommerce.backend.model;
 
-import com.ecommerce.backend.model.dto.OrderItemRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(unique = true)
     private String orderId;
